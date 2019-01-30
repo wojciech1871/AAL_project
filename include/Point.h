@@ -2,7 +2,7 @@
 #define POINT_H
 
 #include <iostream>
-#include <map>
+#include <cstddef>
 
 class Point {
     double x;
@@ -10,6 +10,10 @@ class Point {
     int weight;
 public:
     Point(double, double, int);
+
+    double getX() const;
+    double getY() const;
+    int getWeight() const;
 
     friend std::ostream &operator<< (std::ostream &os, const Point &point);
 };
