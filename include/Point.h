@@ -5,6 +5,7 @@
 #include <cstddef>
 
 class Point {
+public:
     double x;
     double y;
     int weight;
@@ -17,4 +18,5 @@ public:
 
     friend std::ostream &operator<< (std::ostream &os, const Point &point);
 };
+
 #endif //POINT_H

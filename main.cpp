@@ -2,7 +2,10 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+
 #include "Point.h"
+#include "Vertex.h"
+#include "MyAlgorithm.h"
 
 using namespace std;
 
@@ -18,7 +21,10 @@ int main() {
     cout <<p4 <<endl;
 
     vector<Point> points;
-    map<double, Point*> pointsMap;
+    vector<Point> points2;
+    map<double, Vertex*> pointsMap;
+    MyAlgorithm myAg = MyAlgorithm(points);
+
     points.push_back(p1);
     points.push_back(p2);
     points.push_back(p3);
@@ -38,13 +44,15 @@ int main() {
         cout <<*it <<endl;
     }
 
-    pointsMap[p1.getY()] = &p1;
-    pointsMap[p2.getY()] = &p2;
-    pointsMap[p3.getY()] = &p3;
-    pointsMap[p4.getY()] = &p4;
+    pointsMap[p1.getY()] = new Vertex(&p1);
+    pointsMap[p2.getY()] = new Vertex(&p2);
+    pointsMap[p3.getY()] = new Vertex(&p3);
+    pointsMap[p4.getY()] = new Vertex(&p4);
 
     cout <<"Map by y" <<endl;
     for(auto it = pointsMap.begin(); it != pointsMap.end(); it++) {
-        cout <<*(it->second) <<endl;
+
     }
+
+    myAg.printPoints();
 }

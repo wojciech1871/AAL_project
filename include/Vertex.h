@@ -9,6 +9,9 @@ class Vertex {
     int vmax;
 public:
     Vertex(Point*, Point* = nullptr);
+
+    Point& getActPoint();
+    Point& getNextPoint();
 };
 
 #endif //VERTEX_H
