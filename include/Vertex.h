@@ -1,17 +1,23 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
-#include "Point.h"
+#include <iostream>
+#include <iomanip>
 
 class Vertex {
-    Point* actPoint;
-    Point* nextPoint;
-    int vmax;
+    int actIndex;
+    int nextIndex;
+    int rankingScore;
 public:
-    Vertex(Point*, Point* = nullptr);
+    Vertex(int);
 
-    Point& getActPoint();
-    Point& getNextPoint();
+    int getActIndex() const;
+    int getNextIndex() const;
+    int getRankingScore() const;
+    void setRankingScore(int);
+    void setNextIndex(int);
+
+    friend std::ostream &operator<< (std::ostream &os, const Vertex &vertex);
 };
 
 #endif //VERTEX_H

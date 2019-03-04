@@ -1,8 +1,12 @@
 #include "Point.h"
 
-Point::Point(double x, double y, int weight)
-: x(x), y(y), weight(weight)
+Point::Point(int number, double x, double y, int weight)
+: number(number), x(x), y(y), weight(weight)
 {}
+
+int Point::getNumber() const {
+    return number;
+}
 
 double Point::getX() const {
     return x;
@@ -17,6 +21,7 @@ int Point::getWeight() const {
 }
 
 std::ostream & operator <<(std::ostream &os, const Point &point) {
-    os <<point.x <<" " <<point.y <<" " <<point.weight;
+    os <<std::setw(5);
+    os <<point.number <<std::setw(5) <<point.x <<std::setw(5) <<point.y <<std::setw(5) <<point.weight;
     return os;
 }

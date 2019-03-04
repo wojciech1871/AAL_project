@@ -2,16 +2,19 @@
 #define POINT_H
 
 #include <iostream>
+#include <iomanip>
 #include <cstddef>
 
 class Point {
 public:
+    int number;
     double x;
     double y;
     int weight;
 public:
-    Point(double, double, int);
+    Point(int, double, double, int);
 
+    int getNumber() const;
     double getX() const;
     double getY() const;
     int getWeight() const;

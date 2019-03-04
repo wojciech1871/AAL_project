@@ -3,14 +3,18 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
+#include <algorithm>
 #include "Point.h"
 #include "Vertex.h"
 
 class MyAlgorithm{
+    std::map<double, Vertex*> vertexMap;
 public:
-    std::vector<Point>& points;
-    MyAlgorithm(std::vector<Point>&);
-    void printPoints();
+    MyAlgorithm();
+    void printPoints(std::vector<Point>&);
+
+    void algorithmLSLamana(std::vector<Point>&);
 };
 
 #endif //MYALGORITHM_H
