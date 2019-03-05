@@ -30,13 +30,17 @@ void MyAlgorithm::algorithmLSLamana(std::vector<Point>& points) {
             value->setNextIndex(-1);
             value->setRankingScore(it->getWeight());
         }
-        for (auto iter = --insertIt.first; iter != vertexMap.rbegin(); iter++) {
-            if(iter->second->getRankingScore() <= value->getRankingScore()) {
-                vertexMap.erase(iter);
+        int insertedRank = value->getRankingScore();
+        for (auto iter = std::make_reverse_iterator(--insertIt.first); iter != vertexMap.rend(); iter++) {
+            int actElRank = iter->second->getRankingScore();
+            if(actElRank <= insertedRank) {
+                double keyToErase = iter->first;
+                iter--;
+                vertexMap.erase(keyToErase);
             }
         }
     }
-    for(auto it = vertexMap.begin(); it != vertexMap.end(); it++) {
+    for(auto it = vertexMap.rbegin(); it != vertexMap.rend(); it++) {
         std::cout << *(it->second) <<std::endl;
     }
 

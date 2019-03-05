@@ -15,10 +15,12 @@ int main() {
     Point p2 = Point(2, 8, 2, 10);
     Point p3 = Point(3, 7, 4, 11);
     Point p4 = Point(4, 4, 1, 4);
+    Point p5 = Point(5, 5, 11, 30);
     cout <<p1 <<endl;
     cout <<p2 <<endl;
     cout <<p3 <<endl;
     cout <<p4 <<endl;
+    cout <<p5 <<endl;
 
     vector<Point> points;
     vector<Point> points2;
@@ -29,6 +31,7 @@ int main() {
     points.push_back(p2);
     points.push_back(p3);
     points.push_back(p4);
+    points.push_back(p5);
 
     myAg.algorithmLSLamana(points);
 //
