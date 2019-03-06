@@ -23,8 +23,6 @@ int main() {
     cout <<p5 <<endl;
 
     vector<Point> points;
-    vector<Point> points2;
-    map<double, Vertex*> pointsMap;
     MyAlgorithm myAg = MyAlgorithm();
 
     points.push_back(p1);
@@ -33,7 +31,7 @@ int main() {
     points.push_back(p4);
     points.push_back(p5);
 
-    myAg.algorithmLSLamana(points);
+    myAg.runAlgorithmLSLamana(points);
 //
 //        cout <<"After sorted" <<endl;
 //        for(auto it = points.rbegin(); it != points.rend(); it++) {
@@ -51,4 +49,7 @@ int main() {
 //        }
 //
 //        myAg.printPoints();
+    int result = myAg.returnAlgorithmResult();
+    cout <<"alg result is " <<result <<endl;
+    myAg.printVertexPath();
 }

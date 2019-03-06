@@ -8,13 +8,22 @@
 #include "Point.h"
 #include "Vertex.h"
 
-class MyAlgorithm{
-    std::map<double, Vertex*> vertexMap;
+class MyAlgorithm {
+    using vector_type = std::vector<Point>;
+    using map_type = std::map<double, Vertex*>;
+    using path_type = std::vector<int>;
+
+    path_type vertexPath;
+    int algResult;
+
 public:
     MyAlgorithm();
-    void printPoints(std::vector<Point>&);
-
-    void algorithmLSLamana(std::vector<Point>&);
+    void printPoints(vector_type&);
+    void printVertexPath();
+    int returnAlgorithmResult();
+    void runAlgorithmLSLamana(vector_type&);
+    void createVertexPathFromMap(map_type&);
+    void sortPointsByX(vector_type&);
+    void destroyMap(map_type&);
 };
-
 #endif //MYALGORITHM_H
