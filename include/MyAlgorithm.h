@@ -18,11 +18,11 @@ class MyAlgorithm {
 
 public:
     MyAlgorithm();
-    void printPoints(vector_type&);
-    void printVertexPath();
-    int returnAlgorithmResult();
-    void runAlgorithmLSLamana(vector_type&);
-    void createVertexPathFromMap(map_type&);
+    void printPoints(const vector_type&) const;
+    void printVertexPath()const;
+    int returnAlgorithmResult() const;
+    void runAlgorithmLSLamana(const vector_type&);
+    void createVertexPathFromMap(const map_type&);
     void sortPointsByX(vector_type&);
     void destroyMap(map_type&);
 };

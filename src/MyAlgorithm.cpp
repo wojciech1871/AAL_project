@@ -5,14 +5,14 @@ MyAlgorithm::MyAlgorithm()
 : algResult(-1)
 {}
 
-void MyAlgorithm::printPoints(vector_type& points) {
+void MyAlgorithm::printPoints(const vector_type& points) const {
     for(auto it = points.rbegin(); it != points.rend(); it++) {
         std::cout <<*it <<std::endl;
     }
 }
 
 
-void MyAlgorithm::printVertexPath() {
+void MyAlgorithm::printVertexPath() const {
     if(!vertexPath.empty()) {
         for (auto it = vertexPath.begin(); it != vertexPath.end(); it++) {
             std::cout <<*(it) <<"\t";
@@ -23,11 +23,11 @@ void MyAlgorithm::printVertexPath() {
     }
 }
 
-int MyAlgorithm::returnAlgorithmResult() {
+int MyAlgorithm::returnAlgorithmResult() const {
     return algResult;
 }
 
-void MyAlgorithm::runAlgorithmLSLamana(std::vector<Point>& points) {
+void MyAlgorithm::runAlgorithmLSLamana(const vector_type & points) {
     vector_type sortedPoints(points.begin(), points.end());
     map_type vertexMap;
 
@@ -67,7 +67,7 @@ void MyAlgorithm::sortPointsByX(vector_type& points) {
          });
 }
 
-void MyAlgorithm::createVertexPathFromMap(map_type& vertexMap) {
+void MyAlgorithm::createVertexPathFromMap(const map_type& vertexMap) {
     if(!vertexPath.empty()) {
         vertexPath.clear();
     }
