@@ -5,17 +5,26 @@
 #include <unistd.h>
 #include <getopt.h>
 
-#include "Point.h"
-#include "Vertex.h"
 #include "MyAlgorithm.h"
+#include "PointsGenerator.h"
 
-void txtFileParser(std::vector<Point>& points) {
+void pointsFromStream(vector_type& points) {
     int number, weight;
     double x, y;
     while (std::cin >>number >>x >>y >>weight) {
         points.emplace_back(Point(number, x, y, weight));
     }
 }
+
+void pointsFromRandomGenerator(vector_type& points, int size) {
+    PointsGenerator pointsGenerator;
+    pointsGenerator.generateNPoints(points, size);
+}
+
+void usageHelp() {
+
+}
+
 int main(int argc, char* argv[])
 {
     int opt;
@@ -57,8 +66,10 @@ int main(int argc, char* argv[])
     std::cout <<kValue <<std::endl;
     std::cout <<sValue <<std::endl;
 
-
-    txtFileParser(pointsVector);
+    PointsGenerator pointsGen;
+    pointsGen.generateNPoints(pointsVector, 15);
     myAlgorithm.runAlgorithmLSLamana(pointsVector);
     std::cout <<"Result: " <<myAlgorithm.returnAlgorithmResult() <<std::endl;
+    myAlgorithm.printPoints(pointsVector);
+    myAlgorithm.printVertexPath();
 }

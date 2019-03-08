@@ -1,22 +1,27 @@
 #include "MyAlgorithm.h"
-#include <iostream>
 
 MyAlgorithm::MyAlgorithm()
 : algResult(-1)
 {}
 
 void MyAlgorithm::printPoints(const vector_type& points) const {
-    for(auto it = points.rbegin(); it != points.rend(); it++) {
+    for(auto it = points.begin(); it != points.end(); it++) {
         std::cout <<*it <<std::endl;
     }
 }
 
-
-void MyAlgorithm::printVertexPath() const {
+void MyAlgorithm::printVertexPath() {
     if(!vertexPath.empty()) {
-        for (auto it = vertexPath.begin(); it != vertexPath.end(); it++) {
-            std::cout <<*(it) <<"\t";
+        int actIndex = firstVertex;
+        int nextIndex = vertexPath[actIndex];
+        int pathSize = 0;
+        while (actIndex != -1){
+            pathSize++;
+            std::cout <<actIndex <<"\t";
+            actIndex = nextIndex;
+            nextIndex = vertexPath[actIndex];
         }
+        std::cout <<"Path length is " <<pathSize <<std::endl;
     }
     else {
         std::cout <<"Vector is empty" <<std::endl;
@@ -28,23 +33,31 @@ int MyAlgorithm::returnAlgorithmResult() const {
 }
 
 void MyAlgorithm::runAlgorithmLSLamana(const vector_type & points) {
+    int nextIndex;
+    int rankingScore;
+    double key;
+    Vertex* value;
     vector_type sortedPoints(points.begin(), points.end());
     map_type vertexMap;
-
     sortPointsByX(sortedPoints);
+    vertexPath.clear();
     for(auto it = sortedPoints.rbegin(); it != sortedPoints.rend(); it++) {
-        double key = it->getY();
-        auto value = new Vertex(it->getNumber());
+        key = it->getY();
+        value = new Vertex(it->getNumber());
         auto insertIt = vertexMap.insert(std::pair<double, Vertex*>(key, value));
         auto prevMapIt = ++insertIt.first;
         if (prevMapIt != vertexMap.end()) {
-            value->setNextIndex(prevMapIt->second->getActIndex());
-            value->setRankingScore(prevMapIt->second->getRankingScore() + it->getWeight());
+            nextIndex = prevMapIt->second->getActIndex();
+            rankingScore = prevMapIt->second->getRankingScore() + it->getWeight();
         }
         else {
-            value->setNextIndex(-1);
-            value->setRankingScore(it->getWeight());
+            nextIndex = -1;
+            rankingScore = it->getWeight();
         }
+        value->setNextIndex(nextIndex);
+        value->setRankingScore(rankingScore);
+        vertexPath[it->getNumber()] = nextIndex;
+
         int insertedRank = value->getRankingScore();
         for (auto iter = std::make_reverse_iterator(--insertIt.first); iter != vertexMap.rend(); iter++) {
             int actElRank = iter->second->getRankingScore();
@@ -55,8 +68,11 @@ void MyAlgorithm::runAlgorithmLSLamana(const vector_type & points) {
             }
         }
     }
-    createVertexPathFromMap(vertexMap);
     algResult = vertexMap.begin()->second->getRankingScore();
+    firstVertex = vertexMap.begin()->second->getActIndex();
+    for(auto it = vertexMap.begin(); it != vertexMap.end(); it++) {
+        std::cout <<*(it->second) <<std::endl;
+    }
     destroyMap(vertexMap);
 }
 
@@ -65,26 +81,6 @@ void MyAlgorithm::sortPointsByX(vector_type& points) {
          [](const Point &p1, const Point &p2) {
              return p1.getX() < p2.getX();
          });
-}
-
-void MyAlgorithm::createVertexPathFromMap(const map_type& vertexMap) {
-    if(!vertexPath.empty()) {
-        vertexPath.clear();
-    }
-    if(!vertexMap.empty()) {
-        int nextNumber;
-        nextNumber = vertexMap.begin()->second->getNextIndex();
-        vertexPath.reserve(vertexMap.size());
-        vertexPath.push_back(vertexMap.begin()->second->getActIndex());
-        for(auto it = ++vertexMap.begin(); it != vertexMap.end(); it++){
-            int actIndex = it->second->getActIndex();
-            if(nextNumber==actIndex) {
-                vertexPath.push_back(actIndex);
-                nextNumber = it->second->getNextIndex();
-            }
-        }
-    }
-
 }
 
 void MyAlgorithm::destroyMap(map_type& map) {

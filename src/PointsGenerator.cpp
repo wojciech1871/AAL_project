@@ -2,25 +2,34 @@
 
 PointsGenerator::PointsGenerator()
 : minWeight(0), maxWeight(100), minX(-10), maxX(10), minY(-10), maxY(10)
-{
-    srand(time(NULL));
-}
+{}
 
 void PointsGenerator::setWeightScope(int minV, int maxV) {
     minWeight = minV;
     maxWeight = maxV;
-    return;
 }
 
 void PointsGenerator::setXScope(double minV, double maxV) {
     minX = minV;
     maxX = maxV;
-    return;
 }
 
 void PointsGenerator::setYScope(double minV, double maxV) {
     minY = minV;
     maxY = maxV;
-    return;
+}
+
+void PointsGenerator::generateNPoints(vector_type& vectorPoints, int n) {
+    vectorPoints.clear();
+    vectorPoints.reserve(n);
+    std::uniform_real_distribution<double> distX(minX, maxX);
+    std::uniform_real_distribution<double> distY(minY, maxY);
+    std::uniform_int_distribution<int> distWeight(minWeight, maxWeight);
+    for(int number=0; number<n; number++) {
+        double x = distX(mt);
+        double y = distY(mt);
+        int weight = distWeight(mt);
+        vectorPoints.emplace_back(Point(number, x, y, weight));
+    }
 }
 
