@@ -6,5 +6,5 @@ for file in ${POINTS_PATH}/*
 
 do
 	echo File ${file} results:
-	./${EXECUTABLE_PATH}/prog < ${file}
+	./${EXECUTABLE_PATH}/prog -m1 << ${file}
 done

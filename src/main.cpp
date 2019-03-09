@@ -1,6 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <map>
 #include <algorithm>
 #include <unistd.h>
 #include <getopt.h>
@@ -12,26 +10,34 @@ void pointsFromStream(vector_type& points) {
     int number, weight;
     double x, y;
     while (std::cin >>number >>x >>y >>weight) {
-        points.emplace_back(Point(number, x, y, weight));
+        points.emplace_back(number, x, y, weight);
     }
 }
 
-void pointsFromRandomGenerator(vector_type& points, int size) {
-    PointsGenerator pointsGenerator;
-    pointsGenerator.generateNPoints(points, size);
+void algResultsForOneInstance(MyAlgorithm& myAlgorithm, vector_type& pointsVector) {
+    myAlgorithm.printPoints(pointsVector);
+    myAlgorithm.runAlgorithmLSLamana(pointsVector);
+    std::cout <<"Max path: " <<myAlgorithm.returnAlgorithmResult() <<std::endl;
+    std::cout <<"Vertex path: " <<std::endl;
+    myAlgorithm.printVertexPath();
+    std::cout <<std::endl;
 }
 
 void usageHelp() {
-
+    std::cout<<"Wrong program call" <<std::endl;
 }
 
 int main(int argc, char* argv[])
 {
     int opt;
-    int mValue, nValue;
-    int kValue, sValue, rValue;
+    int mValue=0;
+    int nValue=0;
+    int kValue=0;
+    int sValue=0;
+    int rValue=0;
     std::vector<Point> pointsVector;
     MyAlgorithm myAlgorithm;
+    PointsGenerator pointsGenerator;
     static struct option long_options[] = {
             {"mode",        required_argument, nullptr,  'm'},
             {"probSize",    optional_argument, nullptr,  'n'},
@@ -61,15 +67,32 @@ int main(int argc, char* argv[])
             default:
                 break;
         }
-    std::cout <<mValue <<std::endl;
-    std::cout <<nValue <<std::endl;
-    std::cout <<kValue <<std::endl;
-    std::cout <<sValue <<std::endl;
+    switch (mValue) {
+        case 1:
+            pointsFromStream(pointsVector);
+            algResultsForOneInstance(myAlgorithm, pointsVector);
+            return(0);
+        case 2:
+            if(nValue > 0) {
+                pointsGenerator.generateNPoints(pointsVector, nValue);
+                algResultsForOneInstance(myAlgorithm, pointsVector);
+            }
+            break;
+        case 3:
+            if(nValue >0 && kValue >0 && sValue > 0 && rValue > 0) {
+                for(int i = 0; i < kValue; i++) {
+                    for(int j=0; j < rValue; j++) {
+                        pointsGenerator.generateNPoints(pointsVector, nValue);
+                        myAlgorithm.runAlgorithmLSLamana(pointsVector);
+                    }
+                    nValue += (i+1) * sValue;
+                }
+            }
+            break;
+        default:
+            break;
+    }
+    usageHelp();
+    return(-1);
 
-    PointsGenerator pointsGen;
-    pointsGen.generateNPoints(pointsVector, 15);
-    myAlgorithm.runAlgorithmLSLamana(pointsVector);
-    std::cout <<"Result: " <<myAlgorithm.returnAlgorithmResult() <<std::endl;
-    myAlgorithm.printPoints(pointsVector);
-    myAlgorithm.printVertexPath();
 }

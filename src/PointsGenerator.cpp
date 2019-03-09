@@ -29,7 +29,7 @@ void PointsGenerator::generateNPoints(vector_type& vectorPoints, int n) {
         double x = distX(mt);
         double y = distY(mt);
         int weight = distWeight(mt);
-        vectorPoints.emplace_back(Point(number, x, y, weight));
+        vectorPoints.emplace_back(number, x, y, weight);
     }
 }
 

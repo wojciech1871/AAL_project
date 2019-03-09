@@ -21,7 +21,9 @@ int Point::getWeight() const {
 }
 
 std::ostream & operator <<(std::ostream &os, const Point &point) {
-    os <<std::setw(5);
-    os <<point.number <<std::setw(5) <<point.x <<std::setw(5) <<point.y <<std::setw(5) <<point.weight;
+    os <<std::setw(5) <<point.number;
+    os <<std::setw(9) <<std::setprecision(3) <<std::fixed <<point.x;
+    os <<std::setw(9) <<std::setprecision(3) <<std::fixed <<point.y;
+    os <<std::setw(5) <<point.weight;
     return os;
 }

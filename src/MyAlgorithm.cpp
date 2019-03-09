@@ -1,10 +1,14 @@
 #include "MyAlgorithm.h"
 
 MyAlgorithm::MyAlgorithm()
-: algResult(-1)
+: algResult(-1), firstVertex(-1)
 {}
 
 void MyAlgorithm::printPoints(const vector_type& points) const {
+    std::cout <<std::setw(5) <<"Number";
+    std::cout <<std::setw(9) <<"X   ";
+    std::cout <<std::setw(9) <<"Y   ";
+    std::cout <<std::setw(5) <<"Weight" <<std::endl;
     for(auto it = points.begin(); it != points.end(); it++) {
         std::cout <<*it <<std::endl;
     }
@@ -21,7 +25,6 @@ void MyAlgorithm::printVertexPath() {
             actIndex = nextIndex;
             nextIndex = vertexPath[actIndex];
         }
-        std::cout <<"Path length is " <<pathSize <<std::endl;
     }
     else {
         std::cout <<"Vector is empty" <<std::endl;
@@ -41,6 +44,8 @@ void MyAlgorithm::runAlgorithmLSLamana(const vector_type & points) {
     map_type vertexMap;
     sortPointsByX(sortedPoints);
     vertexPath.clear();
+    algResult = -1;
+    firstVertex = -1;
     for(auto it = sortedPoints.rbegin(); it != sortedPoints.rend(); it++) {
         key = it->getY();
         value = new Vertex(it->getNumber());
@@ -70,9 +75,6 @@ void MyAlgorithm::runAlgorithmLSLamana(const vector_type & points) {
     }
     algResult = vertexMap.begin()->second->getRankingScore();
     firstVertex = vertexMap.begin()->second->getActIndex();
-    for(auto it = vertexMap.begin(); it != vertexMap.end(); it++) {
-        std::cout <<*(it->second) <<std::endl;
-    }
     destroyMap(vertexMap);
 }
 

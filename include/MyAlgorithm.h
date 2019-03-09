@@ -9,13 +9,14 @@ class MyAlgorithm {
     path_type vertexPath;
     int algResult;
     int firstVertex;
+
+    void sortPointsByX(vector_type&);
+    void destroyMap(map_type&);
 public:
     MyAlgorithm();
     void printPoints(const vector_type&) const;
     void printVertexPath();
     int returnAlgorithmResult() const;
     void runAlgorithmLSLamana(const vector_type&);
-    void sortPointsByX(vector_type&);
-    void destroyMap(map_type&);
 };
 #endif //MYALGORITHM_H
