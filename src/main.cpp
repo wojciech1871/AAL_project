@@ -80,15 +80,23 @@ int main(int argc, char* argv[])
             break;
         case 3:
             if(nValue >0 && kValue >0 && sValue > 0 && rValue > 0) {
+                clock_type t1, t2;
+                time_period durationTime(0);
                 for(int i = 0; i < kValue; i++) {
+
                     for(int j=0; j < rValue; j++) {
                         pointsGenerator.generateNPoints(pointsVector, nValue);
+                        t1 = std::chrono::high_resolution_clock::now();
                         myAlgorithm.runAlgorithmLSLamana(pointsVector);
+                        t2 = std::chrono::high_resolution_clock::now();
+                        durationTime += (t2-t1);
                     }
-                    nValue += (i+1) * sValue;
+                    std::cout <<nValue <<":\t";
+                    std::cout <<durationTime.count()/rValue <<std::endl;
+                    nValue += sValue;
                 }
             }
-            break;
+            return(0);
         default:
             break;
     }
