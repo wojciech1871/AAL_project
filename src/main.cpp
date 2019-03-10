@@ -23,8 +23,17 @@ void algResultsForOneInstance(MyAlgorithm& myAlgorithm, vector_type& pointsVecto
     std::cout <<std::endl;
 }
 
-void usageHelp() {
-    std::cout<<"Wrong program call" <<std::endl;
+void usageHelp(char* name) {
+    std::cout <<"Incorrect program call. ";
+    std::cout <<"Usage:" <<std::endl;
+    std::cout <<name <<" [-m <value> | --mode=<value>]" <<std::endl;
+    std::cout <<"Options:" <<std::endl;
+    std::cout <<" < [file_name] - required in mode 1" <<std::endl;
+    std::cout << "[-n <value> | --probSize= <value>] - required in mode 2 and 3" <<std::endl;
+    std::cout << "[-k <value> | --numOfProbs= <value>] - required in mode 3" <<std::endl;
+    std::cout << "[-s <value> | --step= <value>] - required in mode 3" <<std::endl;
+    std::cout << "[-r <value> | --instPerProb= <value>] - required in mode 3" <<std::endl;
+    exit (-1);
 }
 
 int main(int argc, char* argv[])
@@ -76,14 +85,14 @@ int main(int argc, char* argv[])
             if(nValue > 0) {
                 pointsGenerator.generateNPoints(pointsVector, nValue);
                 algResultsForOneInstance(myAlgorithm, pointsVector);
+                return(0);
             }
             break;
         case 3:
             if(nValue >0 && kValue >0 && sValue > 0 && rValue > 0) {
                 clock_type t1, t2;
-                time_period durationTime(0);
                 for(int i = 0; i < kValue; i++) {
-
+                    time_period durationTime(0);
                     for(int j=0; j < rValue; j++) {
                         pointsGenerator.generateNPoints(pointsVector, nValue);
                         t1 = std::chrono::high_resolution_clock::now();
@@ -91,16 +100,16 @@ int main(int argc, char* argv[])
                         t2 = std::chrono::high_resolution_clock::now();
                         durationTime += (t2-t1);
                     }
-                    std::cout <<nValue <<":\t";
+                    std::cout <<nValue <<"\t";
                     std::cout <<durationTime.count()/rValue <<std::endl;
                     nValue += sValue;
                 }
+                return(0);
             }
-            return(0);
         default:
             break;
     }
-    usageHelp();
+    usageHelp(argv[0]);
     return(-1);
 
 }

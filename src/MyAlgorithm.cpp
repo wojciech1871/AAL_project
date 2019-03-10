@@ -59,7 +59,6 @@ void MyAlgorithm::runAlgorithmLSLamana(const vector_type & points) {
             nextIndex = -1;
             rankingScore = it->getWeight();
         }
-        value->setNextIndex(nextIndex);
         value->setRankingScore(rankingScore);
         vertexPath[it->getNumber()] = nextIndex;
 
