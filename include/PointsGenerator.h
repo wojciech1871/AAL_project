@@ -21,5 +21,6 @@ public:
     void setXScope(double, double);
     void setYScope(double, double);
     void generateNPoints(vector_type&, int);
+    void destroyPoints(vector_type&);
 };
 #endif //POINTSGENERATOR_H

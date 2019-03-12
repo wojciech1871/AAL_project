@@ -10,7 +10,7 @@ void pointsFromStream(vector_type& points) {
     int number, weight;
     double x, y;
     while (std::cin >>number >>x >>y >>weight) {
-        points.emplace_back(number, x, y, weight);
+        points.push_back(new Point(number, x, y, weight));
     }
 }
 
@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
     int kValue=0;
     int sValue=0;
     int rValue=0;
-    std::vector<Point> pointsVector;
+    vector_type pointsVector;
     MyAlgorithm myAlgorithm;
     PointsGenerator pointsGenerator;
     static struct option long_options[] = {
@@ -80,11 +80,13 @@ int main(int argc, char* argv[])
         case 1:
             pointsFromStream(pointsVector);
             algResultsForOneInstance(myAlgorithm, pointsVector);
+            pointsGenerator.destroyPoints(pointsVector);
             return(0);
         case 2:
             if(nValue > 0) {
                 pointsGenerator.generateNPoints(pointsVector, nValue);
                 algResultsForOneInstance(myAlgorithm, pointsVector);
+                pointsGenerator.destroyPoints(pointsVector);
                 return(0);
             }
             break;
@@ -104,6 +106,7 @@ int main(int argc, char* argv[])
                     std::cout <<durationTime.count()/rValue <<std::endl;
                     nValue += sValue;
                 }
+                pointsGenerator.destroyPoints(pointsVector);
                 return(0);
             }
         default:

@@ -20,6 +20,7 @@ void PointsGenerator::setYScope(double minV, double maxV) {
 }
 
 void PointsGenerator::generateNPoints(vector_type& vectorPoints, int n) {
+    destroyPoints(vectorPoints);
     vectorPoints.clear();
     vectorPoints.reserve(n);
     std::uniform_real_distribution<double> distX(minX, maxX);
@@ -29,7 +30,15 @@ void PointsGenerator::generateNPoints(vector_type& vectorPoints, int n) {
         double x = distX(mt);
         double y = distY(mt);
         int weight = distWeight(mt);
-        vectorPoints.emplace_back(number, x, y, weight);
+        vectorPoints.push_back(new Point(number, x, y, weight));
+    }
+}
+
+void PointsGenerator::destroyPoints(vector_type& vectorPoints) {
+    if(!vectorPoints.empty()) {
+        for(auto it = vectorPoints.begin(); it != vectorPoints.end(); it++) {
+            delete *it;
+        }
     }
 }
 
