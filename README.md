@@ -1,5 +1,6 @@
 # AAL - Projekt LS łamana
-*Wojciech Celej*  
+
+Project developed for Analysis of algorithms. Description in polish below.
 
 ## 1. Opis problemu
 
@@ -22,10 +23,19 @@ Rozważyć też przypadek, w którym pierwszy warunek jest rozluźniony w nastę
 Tryb wykonania programu ustawia się wywołując program z flagą `-m`. Przykładowe wywołania:
 
 * `./prog -m1 <points.txt >>out.txt` - powoduje uruchomienie programu w wersji wykonania nr 1 i zwrócenie wyniku do pliku `out.txt`
+
 * `./prog -m2 -n100 >>out.txt` - powoduje uruchomienie programu w trybie 2. dla problemu o rozmiarze n=100
+
 * `./prog -m3 -n1000 -k30 -s500 -r10` - pomiar czasu dla k=30 problemów o wielkościach n = 1000, 1500, 2000, ...; dla każdej wielkości losowanych jest r=10 instancji problemu.
 
     Aby wywołać program w odpowiednim trybie, trzeba podać wszystkie parametry.
+
+
+Przykładowe wywołania:
+
+<img width="90%" src="./raport/mode1Example.PNG" align="middle">
+<img width="90%" src="./raport/mode2Example.PNG" align="middle">
+<img width="90%" src="./raport/mode3Example.PNG" align="middle">
 
 ## 3. Użyte struktury danych
 
@@ -55,3 +65,4 @@ Do realizacji algorytmu użyto struktury danych z biblioteki STL języka C++. S�
     * `Vertex.cpp` - klasa opisująca numer punktu i jego wartość `rankingScore`
 3. Plik `CMakeLists.txt` - ustawienia budowania projektu
 4. Plik `README.md` - opis projektu
+5. Plik `raport/raport.ipynb` - raport sporządzony w *Jupyter Notebook*
